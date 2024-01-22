@@ -8,16 +8,16 @@ const routes: readonly RouteRecordRaw[] = [
     component: () => import('@/components/Layout/index.vue'),
     children: [
       {
-        path: '/center',
-        name: 'user-center',
-        meta: { key: 'user-center', title: '个人中心', to: '/center' },
-        component: () => import('@/views/common/center/index.vue'),
-      },
-      {
         path: '/admin',
         name: 'admin',
         meta: { key: 'admin' },
         children: [
+          {
+            path: 'center',
+            name: 'user-center',
+            meta: { key: 'user-center', title: '个人中心', to: '/admin/center' },
+            component: () => import('@/views/admin/center/index.vue'),
+          },
           {
             path: 'home',
             name: 'home-info',

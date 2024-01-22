@@ -1,20 +1,24 @@
 <template>
-<ElScrollbar :style="{ height: `${height}px` }">
+<ElScrollbar :style="{ height: `${height}px` }" class="mt-6">
+    <ElText style="font-size: x-large; color: white">图书借阅管理</ElText>
     <ElMenu
         class="aside-wrap border-r-0 my-3 w-278"
+        background-color="rgb(60, 160, 255)"
+        text-color="white"
         :defaultActive="state.defaultActive"
         :defaultOpeneds="state.defaultOpeneds"
     >
         <template v-for="menu of state.menus" :key="menu.id">
             <template v-if="menu.isLeaf">
                 <ElMenuItem
-                    :class="{ 'pl-12': !menu.noLeaf }"
+                    :class="{ 'pl-12': menu.noLeaf }"
                     :index="menu.id"
                     @click="triggerMenuItem($event, menu)"
                 >
                     <template #title>
-                    <i class="gokuer text-lg mr-2 mb-1" :class="menu.icon" />
-                    <span :data-cy="menu.name" class="text-base">{{ menu.title }}</span>
+                    <!-- <i class="gokuer text-lg mr-2 mb-1" :class="menu.icon" /> -->
+                    <SvgIcon :icon-class="menu.icon" />
+                    <span :data-cy="menu.name" style="font-weight: bold" class="text-base">{{ menu.title }}</span>
                     </template>
                 </ElMenuItem>
             </template>
@@ -37,8 +41,8 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import store from '@/store'
 import type { IRouterRecord } from '@/models'
+import SvgIcon from "@/components/SvgIcon/index.vue";
 
 defineProps({
     height: {
@@ -49,89 +53,79 @@ defineProps({
 
 const route = useRoute();
 const router = useRouter();
-const roleId = store.getters["userInfo"].roleId;
 
-let menuSource: IRouterRecord[] = [];
-if (roleId === 1) {
-    menuSource = [
-        {
-            id: '1',
-            icon: '',
-            name: 'apply',
-            /* markRaw(Notebook), */ title: '报名系统',
-            isLeaf: false,
-            children: [
-                {
-                    id: '11',
-                    icon: '',
-                    name: 'submit-apply',
-                    /* markRaw(Lock), */ title: '提交报名信息',
-                    path: '/student/apply/save',
-                    isLeaf: true,
-                    children: [],
-                },
-                {
-                    id: '21',
-                    icon: '',
-                    name: 'apply-result',
-                    /* markRaw(Lock), */ title: '我的申请',
-                    path: '/student/result/information',
-                    isLeaf: true,
-                    children: [],
-                },
-            ],
-        },
-    ]
-} else if (roleId === 2 || roleId === 3) {
-    menuSource = [
-        {
-            id: '11',
-            icon: '',
-            name: 'user-manage',
-            /* markRaw(Setting), */ title: '用户管理',
-            isLeaf: true,
-            noLeaf: true,
-            path: '/auditor/user',
-            children: [],
-        },
-        {
-            id: '2',
-            icon: '',
-            name: 'approval',
-            /* markRaw(Notebook), */ title: '报名管理',
-            isLeaf: false,
-            children: [
-                {
-                    id: '21',
-                    icon: '',
-                    name: 'apply-info',
-                    /* markRaw(Lock), */ title: '报名信息',
-                    path: '/auditor/approve/manage',
-                    isLeaf: true,
-                    children: [],
-                },
-                {
-                    id: '22',
-                    icon: '',
-                    name: 'batch-setting',
-                    /* markRaw(Share), */ title: '批次设置',
-                    path: '/auditor/approve/batch',
-                    isLeaf: true,
-                    children: [],
-                },
-                {
-                    id: '23',
-                    icon: '',
-                    name: 'system-logging',
-                    /* markRaw(Share), */ title: '报名日志',
-                    path: '/auditor/approve/log',
-                    isLeaf: true,
-                    children: [],
-                },
-            ],
-        },
-    ]
-}
+let menuSource: IRouterRecord[] = [
+  {
+    id: '11',
+    icon: 'home',
+    name: 'home-info',
+    /* markRaw(Setting), */ title: '系统首页',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/home',
+    children: [],
+  },
+  {
+    id: '21',
+    icon: 'book',
+    name: 'book-information',
+    /* markRaw(Setting), */ title: '图书管理',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/book/information',
+    children: [],
+  },
+  {
+    id: '31',
+    icon: 'user',
+    name: 'user-information',
+    /* markRaw(Setting), */ title: '用户管理',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/user/information',
+    children: [],
+  },
+  {
+    id: '41',
+    icon: 'borrow',
+    name: 'borrow-info',
+    /* markRaw(Setting), */ title: '借阅管理',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/borrow',
+    children: [],
+  },
+  {
+    id: '51',
+    icon: 'payment',
+    name: 'payment-information',
+    /* markRaw(Setting), */ title: '支付管理',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/payment/information',
+    children: [],
+  },
+  {
+    id: '61',
+    icon: 'activity',
+    name: 'activity-information',
+    /* markRaw(Setting), */ title: '活动管理',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/activity/information',
+    children: [],
+  },
+  {
+    id: '71',
+    icon: 'alert',
+    name: 'alert-information',
+    /* markRaw(Setting), */ title: '提醒设置',
+    isLeaf: true,
+    noLeaf: true,
+    path: '/admin/alert/information',
+    children: [],
+  },
+]
 
 const filterMenu = (tree: IRouterRecord[]) => {
     const treeTmp: IRouterRecord[] = []
@@ -142,10 +136,10 @@ const filterMenu = (tree: IRouterRecord[]) => {
 }
 
 const state = reactive({
-    defaultActive: '',
-    defaultOpeneds: ['1', '2'],
+    defaultActive: '11',
+    defaultOpeneds: [],
     menus: filterMenu(menuSource),
-});
+})
 
 const triggerMenuItem = (el: any, menu: IRouterRecord) => {
     state.defaultActive = menu.id
