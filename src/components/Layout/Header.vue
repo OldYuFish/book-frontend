@@ -2,90 +2,80 @@
   <ElMenu
     class="el-menu-demo bg-image h-16"
     mode="horizontal"
+    background-color="rgb(60, 160, 255)"
     :ellipsis="false"
     text-color="white"
     active-text-color="black"
   >
-    <ElMenuItem index="0" @click="router.push('/home')">
-      <img src="/images/label.png" style="height: 64px;" />
-    </ElMenuItem>
-    <ElMenuItem index="1" class="pb-1 pt-1 ml-6 mr-6" @click="router.push('/home')" style="font-size: x-large; font-weight: bold;">
-      单学位项目硕士研究生预报名系统
-    </ElMenuItem>
-    <template v-if="roleId === 1 && year !== ''">
-      <ElMenuItem class="pt-1 pb-1" style="font-size: large; font-weight: bold;">招生年度：{{ year }}</ElMenuItem>
-    </template>
-    <template v-else-if="roleId === 2 || roleId === 3">
-      <ElMenuItem class="mx-3 px-0">
-        <ElSelect size="large" v-model="year" filterable placeholder="请设置系统年份">
-          <ElOption
-            v-for="item in yearOptions"
-            :key="item.year"
-            :label="item.year"
-            :value="item.year"
-          ></ElOption>
-        </ElSelect>
-        <ElButton class="ml-6" size="large" type="primary" @click="submit">提交</ElButton>
-      </ElMenuItem>
-    </template>
     <div class="flex-grow" />
-    <ElMenuItem class="pb-1 pt-1" index="2" @click="router.push('/center')" style="font-size: large; font-weight: bold;">个人中心</ElMenuItem>
+    <ElMenuItem index="1">
+      <ElPopover
+        placement="bottom"
+        title="用户信息"
+        :width="300"
+        trigger="hover"
+      >
+        <template #default>
+          <div>所在部门：研发中心</div>
+          <div>所处岗位：系统管理员</div>
+          <div>本次登录：2024-01-26 11:34:54</div>
+          <div>登录地区：江西省景德镇市</div>
+          <div>上次登录：2024-01-26 11:10:23</div>
+          <ElButton type="primary" link @click="router.push('/admin/center')">修改密码</ElButton>
+        </template>
+        <template #reference>
+          <ElIcon><UserFilled /></ElIcon>
+        </template>
+      </ElPopover>
+    </ElMenuItem>
+    <ElDivider direction="vertical" class="mt-6" />
+    <ElMenuItem index="2" @click="router.push('/admin/home')">
+      <ElTooltip
+        class="box-item"
+        effect="light"
+        content="系统首页"
+        placement="bottom"
+      >
+        <ElIcon><HomeFilled /></ElIcon>
+      </ElTooltip>
+    </ElMenuItem>
+    <ElDivider direction="vertical" class="mt-6" />
     <ElSubMenu index="3">
-      <template #title>{{ store.getters["userInfo"].userName }}</template>
-      <ElMenuItem index="3-1" @click="logout">注销</ElMenuItem>
+      <template #title><ElIcon><Expand /></ElIcon></template>
+      <ElMenuItem index="4-1" @click="router.push('/admin/home')">系统首页</ElMenuItem>
+      <ElMenuItem index="4-2" @click="router.push('/admin/book/information')">图书管理</ElMenuItem>
+      <ElMenuItem index="4-3" @click="router.push('/admin/user/information')">用户管理</ElMenuItem>
+      <ElMenuItem index="4-4" @click="router.push('/admin/borrow')">借阅管理</ElMenuItem>
+      <ElMenuItem index="4-5" @click="router.push('/admin/payment/information')">支付管理</ElMenuItem>
+      <ElMenuItem index="4-6" @click="router.push('/admin/activity/information')">活动管理</ElMenuItem>
     </ElSubMenu>
+    <ElDivider direction="vertical" class="mt-6" />
+    <ElMenuItem index="4" @click="logout">
+      <ElTooltip
+        class="box-item"
+        effect="light"
+        content="退出登录"
+        placement="bottom"
+      >
+        <ElIcon><SwitchButton /></ElIcon>
+      </ElTooltip>
+    </ElMenuItem>
   </ElMenu>
 </template>
 
 <script lang="ts" setup>
+import { SwitchButton, Expand, HomeFilled, UserFilled } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
-import store from "@/store";
-import { YearInfo } from "@/models";
-import { login, approveTable, user } from "@/api";
-
-const roleId = store.getters["userInfo"].roleId;
-const yearOptions = ref<YearInfo[]>([]);
-const router = useRouter();
-const year = ref("");
+import router from "@/router";
+import { login } from "@/api";
 
 const logout = async () => {
   const { data } = await login.logout();
   if (data.code === 0) {
-    ElMessage.success("注销成功!");
+    ElMessage.success("注销成功！");
   }
   await router.push("/login");
 };
-
-const submit = async () => {
-  const { data } = await approveTable.year({ year: year.value });
-  if (data.code === 0) {
-    ElMessage.success("年份设置成功！");
-  }
-};
-
-const getYears = async () => {
-  const { data } = await approveTable.yearList();
-  if (data.code === 0) {
-    data.data.years.forEach((y) => {
-      if (y !== "") {
-        yearOptions.value.push({ year: y });
-      }
-    })
-  }
-}
-
-const getSelectedYear = async () => {
-  const { data } = await user.year();
-  if (data.code === 0) {
-    year.value = data.data.year;
-  }
-}
-
-if (roleId === 2 || roleId === 3) {
-  getYears();
-}
-
-getSelectedYear();
 </script>
 
 <style>
@@ -95,7 +85,12 @@ getSelectedYear();
   height: 100%;
 }
 
-.bg-image {
-  background: url('/images/bg-header.png');
+.el-menu:not(.el-menu--collapse) .el-sub-menu__title{
+  padding-right: 12px;
+  padding-left: 18px;
+}
+
+.el-sub-menu .el-sub-menu__icon-arrow{
+  display: none;
 }
 </style>

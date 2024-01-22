@@ -2,19 +2,19 @@
   <UseWindowSize v-slot="{ height }">
     <ElConfigProvider :locale="zh">
       <ElContainer :style="{ height: `${height}px` }">
-        <ElHeader class="box-content p-0 pb-1 header bg-white h-16">
-          <GkHeader />
-        </ElHeader>
+        <ElAside class="relative w-56 bg-white" style="background-color: rgb(60, 160, 255)">
+          <GkAside :height="height - 90" />
+        </ElAside>
         <ElContainer style="background-color: #f5f5f5;">
-          <ElAside class="relative w-auto bg-white">
-            <GkAside :height="height - 90" />
-          </ElAside>
+          <ElHeader class="box-content p-0 header bg-white h-16">
+            <GkHeader />
+          </ElHeader>
           <ElScrollbar :style="{ height: `${height - 90}px` }" class="w-full">
             <ElMain>
               <RouterView v-slot="{ Component, route }">
                 <Transition
                   v-if="route.meta.keepAlive"
-                  :name="(route.meta.transition as string) || 'fade'"
+                  :name="route.meta.transition || 'fade'"
                   mode="out-in"
                   appear
                 >
@@ -24,7 +24,7 @@
                 </Transition>
                 <Transition
                   v-if="!route.meta.keepAlive"
-                  :name="(route.meta.transition as string) || 'fade'"
+                  :name="route.meta.transition || 'fade'"
                   mode="out-in"
                   appear
                 >
@@ -40,7 +40,7 @@
 </template>
   
 <script lang="ts" setup>
-import zh from 'element-plus/lib/locale/lang/zh-cn'
+import zh from 'element-plus/es/locale/lang/zh-cn'
 import { UseWindowSize } from '@vueuse/components'
 import { RouterView } from 'vue-router'
 import GkHeader from './Header.vue'
