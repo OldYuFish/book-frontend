@@ -1,6 +1,8 @@
 <template>
   <div class="gk-table-wrap rounded-b">
-    <ElTable :data="data" @selectionChange="getSelect">
+    <!-- <ElTable :data="data" @selectionChange="getSelect"> -->
+    <ElTable :data="data">
+      <ElTableColumn type="selection" width="50" />
       <template #default>
         <slot name="tableColumn"></slot>
       </template>
@@ -27,9 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { ApplyQuery } from '@/models';
 import { Loading } from '@element-plus/icons-vue'
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -64,24 +65,24 @@ const props = defineProps({
 
 const emits = defineEmits({
   pageChange: (_pageIndex: number, _pageSize: number) => true,
-  getApplyList: (_applyList: string[]) => true,
+  // getList: (_tableList: string[]) => true,
 })
 
-const applyList = ref<string[]>([]);
+/*const tableList = ref<string[]>([]);
 
-const getSelect = (val: ApplyQuery[]) => {
-  applyList.value = [];
+const getSelect = (val: any[]) => {
+  tableList.value = [];
   val.forEach((v) => {
-    applyList.value.push(v.aid);
+    tableList.value.push(v.aid);
   });
 }
 
 watch(
-  () => applyList.value,
+  () => tableList.value,
   () => {
-    emits('getApplyList', applyList.value)
+    emits('getList', tableList.value)
   },
-);
+);*/
 
 // 分页配置项, 双向绑定, 外部传入值覆盖内部值改变
 const pageCfg = computed(() => props.pageConfig)
