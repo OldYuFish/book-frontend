@@ -1,10 +1,3 @@
-<!-- <template>
-
-</template>
-
-<script lang="ts" setup>
-
-</script> -->
 <template>
   <el-container>
     <el-header class="header">
@@ -47,7 +40,7 @@
   </el-container>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ElContainer, ElHeader, ElMain, ElFooter, ElRow, ElCol, ElForm, ElFormItem, ElAvatar, ElButton } from 'element-plus';
 </script>
 
