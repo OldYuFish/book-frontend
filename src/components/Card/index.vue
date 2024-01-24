@@ -1,15 +1,15 @@
 <template>
   <ElCard :body-style="{ padding: '0px' }">
-    <template v-if="props.cardType === 'book'">
+    <template v-if="pageRoute === 'book'">
       <img :src="props.image" class="image" />
       <CardText
         :title="props.title"
         :info="props.info"
         :detail-id="props.detailId"
-        :page-route="props.pageRoute"
+        :page-route="pageRoute"
       />
     </template>
-    <template v-else-if="props.cardType === 'payment'">
+    <template v-else-if="pageRoute === 'payment'">
       <ElRow justify="center">
         <ElAvatar style="margin-top: 12px" shape="circle" size="large" :src="props.image" />
       </ElRow>
@@ -17,10 +17,10 @@
         :title="props.title"
         :info="props.info"
         :detail-id="props.detailId"
-        :page-route="props.pageRoute"
+        :page-route="pageRoute"
       />
     </template>
-    <template v-else-if="props.cardType === 'activity'">
+    <template v-else-if="pageRoute === 'activity'">
       <ElRow>
         <ElCol :span="8">
           <img style="margin: 6px" :src="props.image" class="image" />
@@ -30,7 +30,7 @@
             :title="props.title"
             :info="props.info"
             :detail-id="props.detailId"
-            :page-route="props.pageRoute"
+            :page-route="pageRoute"
           />
         </ElCol>
       </ElRow>
@@ -60,13 +60,12 @@ const props = defineProps({
     type: Number,
     default: 0
   },
-  pageRoute: {
-    type: String,
-    default: ''
-  },
-  cardType: {
-    type: String,
-    default: ''
-  }
 });
+
+const route = useRoute();
+const getPath = (path: string) => {
+  const index = path.indexOf('-');
+  return path.slice(0, index);
+}
+const pageRoute = getPath(route.name as string);
 </script>

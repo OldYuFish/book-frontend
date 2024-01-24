@@ -66,8 +66,9 @@
 <script lang="ts" setup>
 import { SwitchButton, Expand, HomeFilled, UserFilled } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
-import router from "@/router";
 import { login } from "@/api";
+
+const router = useRouter();
 
 const logout = async () => {
   const { data } = await login.logout();
