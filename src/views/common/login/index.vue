@@ -1,8 +1,3 @@
-<script setup>
-import { checkEmail, checkPhone } from '@/utils.js';
-import { ElMessage } from 'element-plus'
-import { ref } from 'vue'
-</script>
 <template>
     <div class="container">
         <div class="login">
@@ -25,6 +20,11 @@ import { ref } from 'vue'
         </div>
     </div>
 </template>
+<script setup>
+import { checkEmail, checkPhone } from '@/utils.js';
+import { ElMessage } from 'element-plus'
+import { ref } from 'vue'
+</script>
 <style>
 * {
     margin: 0;
