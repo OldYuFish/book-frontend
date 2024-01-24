@@ -2,13 +2,13 @@
     <el-form :model="form" labelWidth="180px" :rules="rules">
         <el-row>
             <el-col :span="12">
-                <el-form-item label="账号" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="账号" prop="username">
+                    <el-input v-model="form.username" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="密码" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="密码" prop="password">
+                    <el-input v-model="form.password" />
                 </el-form-item>
             </el-col>
         </el-row>
@@ -20,87 +20,87 @@
                 </el-form-item> -->
                 <el-row>
             <el-col :span="12">
-                <el-form-item label="用户姓名" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="用户姓名" prop="realName">
+                    <el-input v-model="form.realName" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="用户编号" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="用户编号" prop="userId">
+                    <el-input v-model="form.userId" disabled/>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form-item label="性别" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="性别">
+                    <el-input v-model="form.sex" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="民族" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="民族">
+                    <el-input v-model="form.nation" />
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form-item label="职务" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="职务">
+                    <el-input v-model="form.duties" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="状态" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="状态">
+                    <el-input v-model="form.status" />
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form-item label="证件类型" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="证件类型">
+                    <el-input v-model="form.idType" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="证件编号" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="证件编号">
+                    <el-input v-model="form.idCardNumber" />
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form-item label="联系电话" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="联系电话">
+                    <el-input v-model="form.phone" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="婚姻情况" prop="title">
-                    <el-input v-model="form.title" />
-                </el-form-item>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="24">
-                <el-form-item label="通讯地址" prop="title">
-                    <el-input v-model="form.title" />
-                </el-form-item>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="12">
-                <el-form-item label="可借图书数" prop="title">
-                    <el-input v-model="form.title" />
-                </el-form-item>
-            </el-col>
-            <el-col :span="12">
-                <el-form-item label="注册时间" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="婚姻情况">
+                    <el-input v-model="form.marriage" />
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="24">
-                <el-form-item label="备注" prop="title">
-                    <el-input v-model="form.title" />
+                <el-form-item label="通讯地址">
+                    <el-input v-model="form.address" />
+                </el-form-item>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="12">
+                <el-form-item label="可借图书数">
+                    <el-input v-model="form.couldBorrow" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="注册时间">
+                    <el-input v-model="form.registerDate" disable :placeholder="now"/>
+                </el-form-item>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24">
+                <el-form-item label="备注">
+                    <el-input v-model="form.note" />
                 </el-form-item>
             </el-col>
         </el-row>
@@ -124,43 +124,52 @@ import { reactive, ref } from 'vue'
 import { FormRules } from 'element-plus'
 import dayjs from 'dayjs'
 
+let now=dayjs()
+
 interface RuleForm {
-    title: string
-    type: string
-    pushChannel: boolean
-    frequency: string
-    description: string
-    role: string
-    createDate: string
-    status: string
+    userId:string
+    username:string
+    password:string
+    realName:string
+    sex:string
+    nation:string
+    duties:string
+    status:string
+    idType:string
+    idCardNumber:string
+    phone:string
+    marriage:string
+    address:string
+    couldBorrow:string
+    registerDate:string
+    note:string
 }
 const form = reactive({
-    title: '',
-    type: '',
-    pushChannel: '',
-    frequency: '',
-    description: '',
-    role: '',
-    createDate: '',
-    status: '',
+    userId:'',
+    username:'',
+    password:'',
+    realName:'',
+    sex:'',
+    nation:'',
+    duties:'',
+    status:'',
+    idType:'',
+    idCardNumber:'',
+    phone:'',
+    marriage:'',
+    address:'',
+    couldBorrow:'',
+    registerDate:'',
+    note:'',
 })
 const rules = reactive<FormRules<RuleForm>>({
-    title: [
+    username: [
         { required: true, trigger: 'blur' },
     ],
-    type: [
+    password: [
         { required: true, trigger: 'blur' },
     ],
-    pushChannel: [
-        { required: true, trigger: 'blur' },
-    ],
-    frequency: [
-        { required: true, trigger: 'blur' },
-    ],
-    role: [
-        { required: true, trigger: 'blur' },
-    ],
-    status: [
+    realName: [
         { required: true, trigger: 'blur' },
     ],
 })
