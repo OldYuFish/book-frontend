@@ -80,11 +80,11 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { FormRules, FormInstance } from 'element-plus';
+import { FormRules, FormInstance, ElMessage } from "element-plus";
 import dayjs from 'dayjs';
 import { AlertInformation } from "@/models";
+import { alertManage } from "@/api";
 
-let now=dayjs();
 const formRef = ref<FormInstance>();
 const form = reactive({
     title: '',
@@ -115,5 +115,27 @@ const rules: FormRules = {
     status: [
         { required: true, trigger: 'blur' },
     ],
+};
+const create = () => {
+  formRef.value!.validate(async (valid) => {
+    if (valid) {
+      const params = {
+        title: form.title,
+        type: form.type,
+        pushChannel: form.pushChannel,
+        frequency: form.frequency,
+        description: form.description,
+        role: form.role,
+        createDate: dayjs(form.createDate).format("YYYY-MM-DD"),
+        status: form.status,
+      } as AlertInformation;
+      const { data } = await alertManage.create(params);
+      if (data.code === 0) {
+        ElMessage.success("提醒创建成功！");
+      }
+    } else {
+      ElMessage.error("表格填写有误，请检查！");
+    }
+  })
 };
 </script>
