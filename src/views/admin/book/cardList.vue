@@ -1,6 +1,6 @@
 <template>
   <ElRow>
-    <div v-for="(bookList, index) in bookCardInfo">
+    <template v-for="(bookList, index) in bookCardInfo">
       <ElCol :span="4" :offset="index%5 === 0 ? 0 : 1">
         <Card
           :title="bookList.title"
@@ -8,7 +8,7 @@
           :info="bookList.info"
         />
       </ElCol>
-    </div>
+    </template>
   </ElRow>
   <ElEmpty v-show="!bookCardInfo.value" :image-size="160" description="暂无数据" />
   <ElPagination
