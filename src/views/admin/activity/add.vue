@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="form" labelWidth="180px" :rules="rules">
+    <el-form :model="form" ref="formRef" labelWidth="180px" :rules="rules">
         <el-row>
             <el-col :span="24">
                 <el-form-item label="活动标题" prop="title">
@@ -29,12 +29,12 @@
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form-item label="报名开始时间">
+                <el-form-item label="报名开始时间" prop="applicationStartDate">
                     <el-input v-model="form.applicationStartDate" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="报名结束时间">
+                <el-form-item label="报名结束时间" prop="applicationEndDate">
                     <el-input v-model="form.applicationEndDate" />
                 </el-form-item>
             </el-col>
@@ -81,7 +81,7 @@
                 </el-button>
             </el-col>
             <el-col :span="12">
-                <el-button type="primary">
+                <el-button type="primary" @click="create">
                     保存
                 </el-button>
             </el-col>
@@ -90,19 +90,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { FormRules } from 'element-plus';
-interface RuleForm {
-    title: string
-    type: string
-    shouldApplication: boolean
-    applicationStartDate: string
-    applicationEndDate: string
-    activityStartDate: string
-    activityEndDate: string
-    address: string
-    description: string
-}
+import { FormInstance, FormRules } from 'element-plus';
+import { ActivityInformation } from "@/models";
+import { ElMessage } from "element-plus";
+import { activityManage } from "@/api";
+
+const formRef = ref<FormInstance>();
 const form = reactive({
     title: '',
     type: '',
@@ -113,8 +106,8 @@ const form = reactive({
     activityEndDate: '',
     address: '',
     description: '',
-})
-const rules = reactive<FormRules<RuleForm>>({
+} as ActivityInformation)
+const rules: FormRules = {
     title: [
         { required: true, trigger: 'blur' },
     ],
@@ -133,5 +126,17 @@ const rules = reactive<FormRules<RuleForm>>({
     address: [
         { required: true, trigger: 'blur' },
     ],
-})
+};
+const create = () => {
+  formRef.value!.validate(async (valid) => {
+    if (valid) {
+      const { data } = await activityManage.create({ activityInformation: form });
+      if (data.code === 0) {
+        ElMessage.success("活动创建成功！");
+      }
+    } else {
+      ElMessage.error("表格填写有误，请检查！");
+    }
+  })
+};
 </script>
