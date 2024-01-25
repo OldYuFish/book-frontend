@@ -2,9 +2,11 @@
   <div style="padding: 14px">
     <span>{{ props.title }}</span>
     <div class="bottom">
-      <ElRow v-for="{ value, key } in props.info">
-        <ElText size="small">{{ key }}：{{ value }}</ElText>
-      </ElRow>
+      <template v-for="( value, key ) in props.info">
+        <ElRow>
+          <ElText size="small">{{ key }}：{{ value }}</ElText>
+        </ElRow>
+      </template>
       <template v-if="props.detailId !== 0">
         <ElRow>
           <ElButton type="primary" size="small" link @click="router.push(goto)">查看详情</ElButton>
