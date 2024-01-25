@@ -35,11 +35,10 @@
 </template>
 
 <script lang="ts" setup>
-import { PageConfig } from "@/models";
 import Table from "@/components/Table/index.vue"
 
 const alertLists = ref<any[]>([]);
-const pageConfig = ref<PageConfig>({
+const pageConfig = ref<IPagination>({
   pageIndex: 1,
   pageSize: 10,
   total: 0

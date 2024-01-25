@@ -6,7 +6,6 @@
         :title="props.title"
         :info="props.info"
         :detail-id="props.detailId"
-        :page-route="pageRoute"
       />
     </template>
     <template v-else-if="pageRoute === 'payment'">
@@ -17,7 +16,6 @@
         :title="props.title"
         :info="props.info"
         :detail-id="props.detailId"
-        :page-route="pageRoute"
       />
     </template>
     <template v-else-if="pageRoute === 'activity'">
@@ -30,7 +28,6 @@
             :title="props.title"
             :info="props.info"
             :detail-id="props.detailId"
-            :page-route="pageRoute"
           />
         </ElCol>
       </ElRow>
