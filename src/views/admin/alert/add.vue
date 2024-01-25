@@ -65,7 +65,7 @@
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-button>
+                <el-button @click="router.push('/admin/alert/information')">
                     返回
                 </el-button>
             </el-col>
@@ -85,6 +85,7 @@ import dayjs from 'dayjs';
 import { AlertInformation } from "@/models";
 import { alertManage } from "@/api";
 
+const router = useRouter();
 const formRef = ref<FormInstance>();
 const form = reactive({
     title: '',
