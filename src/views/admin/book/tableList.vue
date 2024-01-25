@@ -34,7 +34,6 @@
       </ElTableColumn>
     </template>
   </Table>
-  <ElEmpty v-show="!props.bookLists" :image-size="160" description="暂无数据" />
 </template>
 <script lang="ts" setup>
 import { PropType } from "vue";
