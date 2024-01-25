@@ -2,7 +2,7 @@
   <div class="gk-table-wrap rounded-b">
     <!-- <ElTable :data="data" @selectionChange="getSelect"> -->
     <ElTable :data="data">
-      <ElTableColumn type="selection" width="50" />
+      <!-- <ElTableColumn type="selection" width="50" /> -->
       <template #default>
         <slot name="tableColumn"></slot>
       </template>
