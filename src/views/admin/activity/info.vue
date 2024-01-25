@@ -31,10 +31,9 @@
 <script lang="ts" setup>
 import Search from "@/components/Search/index.vue";
 import Card from "@/components/Card/index.vue";
-import { PageConfig } from "@/models"
 
 const activityLists = ref<any[]>([]);
-const pageConfig = ref<PageConfig>({
+const pageConfig = ref<IPagination>({
   pageIndex: 1,
   pageSize: 10,
   total: 0

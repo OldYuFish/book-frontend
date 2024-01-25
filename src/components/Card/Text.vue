@@ -29,13 +29,15 @@ const props = defineProps({
   detailId: {
     type: Number,
     default: 0
-  },
-  pageRoute: {
-    type: String,
-    default: ''
   }
 });
 
 const router = useRouter();
-const goto: string = `/admin/${props.pageRoute}/detail/${props.detailId}`;
+const route = useRoute();
+const getPath = (path: string) => {
+  const index = path.indexOf('-');
+  return path.slice(0, index);
+}
+const pageRoute = getPath(route.name as string);
+const goto: string = `/admin/${pageRoute}/detail/${props.detailId}`;
 </script>
