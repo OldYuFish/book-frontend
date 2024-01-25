@@ -4,7 +4,7 @@
       <ElCol :span="4" :offset="index%5 === 0 ? 0 : 1">
         <Card
           :title="bookList.title"
-          :image="bookList.image"
+          :image="'/img/4.png'"
           :info="bookList.info"
         />
       </ElCol>

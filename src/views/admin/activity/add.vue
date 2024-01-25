@@ -108,6 +108,7 @@ const form = reactive({
     activityEndDate: '',
     address: '',
     description: '',
+    image: '',
 } as ActivityInformation)
 const rules: FormRules = {
     title: [
@@ -142,6 +143,7 @@ const create = () => {
         activityEndDate: dayjs(form.activityEndDate).format("YYYY-MM-DD"),
         address: form.address,
         description: form.description,
+        image: '',
       } as ActivityInformation;
       const { data } = await activityManage.create(params);
       if (data.code === 0) {
