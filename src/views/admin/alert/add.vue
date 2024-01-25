@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="form" labelWidth="180px" :rules="rules">
+    <el-form :model="form" ref="formRef" labelWidth="180px" :rules="rules">
         <el-row>
             <el-col :span="12">
                 <el-form-item label="标题名称" prop="title">
@@ -39,7 +39,7 @@
         </el-row>
         <el-row>
             <el-col :span="24">
-                <el-form-item label="提醒内容模板">
+                <el-form-item label="提醒内容模板" prop="description">
                     <el-input v-model="form.description" />
                 </el-form-item>
             </el-col>
@@ -53,7 +53,7 @@
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form-item label="创建时间">
+                <el-form-item label="创建时间" prop="createDate">
                     <el-input v-model="form.createDate" disabled  :placeholder="now"/>
                 </el-form-item>
             </el-col>
@@ -70,7 +70,7 @@
                 </el-button>
             </el-col>
             <el-col :span="12">
-                <el-button type="primary">
+                <el-button type="primary" @click="create">
                     保存
                 </el-button>
             </el-col>
@@ -79,22 +79,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { FormRules } from 'element-plus'
-import dayjs from 'dayjs'
+import { reactive, ref } from 'vue';
+import { FormRules, FormInstance } from 'element-plus';
+import dayjs from 'dayjs';
+import { AlertInformation } from "@/models";
 
-let now=dayjs()
-
-interface RuleForm {
-    title: string
-    type: string
-    pushChannel: boolean
-    frequency: string
-    description: string
-    role: string
-    createDate: string
-    status: string
-}
+let now=dayjs();
+const formRef = ref<FormInstance>();
 const form = reactive({
     title: '',
     type: '',
@@ -104,8 +95,8 @@ const form = reactive({
     role: '',
     createDate: '',
     status: '',
-})
-const rules = reactive<FormRules<RuleForm>>({
+} as AlertInformation)
+const rules: FormRules = {
     title: [
         { required: true, trigger: 'blur' },
     ],
@@ -124,5 +115,5 @@ const rules = reactive<FormRules<RuleForm>>({
     status: [
         { required: true, trigger: 'blur' },
     ],
-})
+};
 </script>

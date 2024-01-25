@@ -23,7 +23,7 @@ export const bookManage = {
       data: params,
     })
   },
-  create: (params: { bookInformation: BookInformation }): AxiosPromise<any> => {
+  create: (params: BookInformation ): AxiosPromise<any> => {
     return axios.request({
       url: '/api/book-create',
       data: params,
@@ -38,7 +38,7 @@ export const userManage = {
       data: params,
     })
   },
-  create: (params: { userInformation: UserDetail }): AxiosPromise<any> => {
+  create: (params: UserDetail ): AxiosPromise<any> => {
     return axios.request({
       url: '/api/user-create',
       data: params,
@@ -53,7 +53,7 @@ export const activityManage = {
       data: params,
     })
   },
-  create: (params: { activityInformation: ActivityInformation }): AxiosPromise<any> => {
+  create: (params: ActivityInformation ): AxiosPromise<any> => {
     return axios.request({
       url: '/api/activity-create',
       data: params,
@@ -68,7 +68,7 @@ export const alertManage = {
       data: params,
     })
   },
-  create: (params: { alertInformation: AlertInformation }): AxiosPromise<any> => {
+  create: (params: AlertInformation ): AxiosPromise<any> => {
     return axios.request({
       url: '/api/alert-create',
       data: params,

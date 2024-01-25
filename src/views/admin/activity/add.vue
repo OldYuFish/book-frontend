@@ -94,6 +94,7 @@ import { FormInstance, FormRules } from 'element-plus';
 import { ActivityInformation } from "@/models";
 import { ElMessage } from "element-plus";
 import { activityManage } from "@/api";
+import dayjs from "dayjs";
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -130,7 +131,18 @@ const rules: FormRules = {
 const create = () => {
   formRef.value!.validate(async (valid) => {
     if (valid) {
-      const { data } = await activityManage.create({ activityInformation: form });
+      const params = {
+        title: form.title,
+        type: form.type,
+        shouldApplication: form.shouldApplication,
+        applicationStartDate: dayjs(form.applicationStartDate).format("YYYY-MM-DD"),
+        applicationEndDate: dayjs(form.applicationEndDate).format("YYYY-MM-DD"),
+        activityStartDate: dayjs(form.activityStartDate).format("YYYY-MM-DD"),
+        activityEndDate: dayjs(form.activityEndDate).format("YYYY-MM-DD"),
+        address: form.address,
+        description: form.description,
+      } as ActivityInformation;
+      const { data } = await activityManage.create(params);
       if (data.code === 0) {
         ElMessage.success("活动创建成功！");
       }
