@@ -23,7 +23,6 @@ export interface UserInfo {
 export interface UserDetail {
   userId: string
   username: string
-  image: string
   realName: string
   password: string
   sex: string
