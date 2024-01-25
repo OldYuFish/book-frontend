@@ -157,6 +157,8 @@ const alertQueryFunction = async () => {
 const queryAPI = {
   "book": bookQueryFunction,
   "user": userQueryFunction,
+  "borrow": () => {},
+  "payment": () => {},
   "activity": activityQueryFunction,
   "alert": alertQueryFunction,
 };

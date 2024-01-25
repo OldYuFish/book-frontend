@@ -19,7 +19,10 @@
         <template #label>
           <ElIcon><Fold /></ElIcon>
         </template>
-        <TableList :book-lists="bookLists.value" />
+        <TableList
+          :book-lists="bookLists.value"
+          @tablePageChange="tablePageChange"
+        />
       </ElTabPane>
     </ElTabs>
   </ElCard>
@@ -44,5 +47,8 @@ const activeName = ref("card");
 const pageChange = (pageIndex: number, pageSize: number) => {
   pageConfig.value.pageIndex = pageIndex;
   pageConfig.value.pageSize = pageSize;
+}
+const tablePageChange = (pageCfg: IPagination) => {
+  pageConfig.value = pageCfg;
 }
 </script>

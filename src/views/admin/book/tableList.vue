@@ -19,8 +19,15 @@
       <ElTableColumn label="图书状态" prop="status" />
       <ElTableColumn label="添加时间" prop="updateTime" />
       <ElTableColumn label="操作" prop="operate" align="right">
-        <template #default>
-          <ElButton class="m-1" type="primary" link @click="">查看</ElButton>
+        <template #default="{ row }">
+          <ElButton
+            class="m-1"
+            type="primary"
+            link
+            @click="router.push(`/admin/${pageRoute}/detail/${row.id}`)"
+          >
+            查看
+          </ElButton>
           <ElButton class="m-1" type="primary" link>编辑</ElButton>
           <ElButton class="m-1" type="danger" link>删除</ElButton>
         </template>
@@ -50,6 +57,17 @@ const props = defineProps({
     },
   },
 });
+const emits = defineEmits({
+  tablePageChange: (_pageCfg: IPagination) => true,
+});
+
+const router = useRouter();
+const route = useRoute();
+const getPath = (path: string) => {
+  const index = path.indexOf('-');
+  return path.slice(0, index);
+}
+const pageRoute = getPath(route.name as string);
 const pageCfg = ref<IPagination>({
   pageIndex: 1,
   pageSize: 10,
@@ -59,6 +77,16 @@ watch(
   () => props.pageConfig,
   () => {
     pageCfg.value = props.pageConfig;
+  }
+);
+const pageChange = (pageIndex: number, pageSize: number) => {
+  pageCfg.value.pageIndex = pageIndex;
+  pageCfg.value.pageSize = pageSize;
+};
+watch(
+  () => pageCfg.value,
+  () => {
+    emits('tablePageChange', pageCfg.value);
   }
 );
 </script>
