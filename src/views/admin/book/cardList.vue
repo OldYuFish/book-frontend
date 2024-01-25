@@ -1,14 +1,13 @@
 <template>
   <ElRow>
-    <div v-for="bookList of bookCardInfo">
-      <ElCol :span="4">
+    <div v-for="(bookList, index) in bookCardInfo">
+      <ElCol :span="4" :offset="index%5 === 0 ? 0 : 1">
         <Card
           :title="bookList.title"
           :image="bookList.image"
           :info="bookList.info"
         />
       </ElCol>
-      <ElCol :span="1"></ElCol>
     </div>
   </ElRow>
   <ElEmpty v-show="!bookCardInfo.value" :image-size="160" description="暂无数据" />

@@ -5,7 +5,7 @@
   />
   <ElCard>
     <Table
-      v-show="alertLists.value"
+      v-show="alertLists"
       class="px-6"
       :data="alertLists"
       :page-config="pageConfig"
@@ -30,7 +30,6 @@
         </ElTableColumn>
       </template>
     </Table>
-    <ElEmpty v-show="!alertLists.value" :image-size="160" description="暂无数据" />
   </ElCard>
 </template>
 
