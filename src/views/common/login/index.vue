@@ -1,22 +1,41 @@
 <template>
     <div class="container">
         <div class="login">
-            <div class="loginTitle">
-                登录
-            </div>
-            <div>
-                <el-input v-model="username" placeholder="手机号或电子邮箱" class="input" />
-            </div>
-            <div>
-                <el-input v-model="password" type="password" placeholder="密码" class="input" />
-            </div>
-            <div>
-                <el-checkbox v-model="checked" @click=rememberPassword label="记住密码" style="width:60%;" />
-                <el-button link @click="toFindPassword">忘记密码?</el-button>
-            </div>
-            <div>
-                <el-button type="primary" class="input" @click="login">登录</el-button>
-            </div>
+            <el-tabs style="margin: 30px;">
+                <el-tab-pane label="登录">
+                    <div>
+                        <el-input v-model="username" placeholder="手机号" class="input" />
+                    </div>
+                    <div>
+                        <el-input v-model="password" type="password" placeholder="密码" class="input" />
+                    </div>
+                    <div>
+                        <el-checkbox v-model="checked" @click=rememberPassword label="记住密码" style="width:60%;" />
+                        <el-button link @click="toFindPassword">忘记密码?</el-button>
+                    </div>
+                    <div>
+                        <el-button type="primary" class="input" @click="login">登录</el-button>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="找回密码">
+                    <div>
+                        <el-input v-model="phone" placeholder="邮箱" class="input" />
+                    </div>
+                    <div>
+                        <el-input v-model="code" placeholder="验证码" style="width: 50%; margin: 4%;" />
+                        <el-button class="inputcodebutton" type="primary" @click="getVerificationCode">发送验证码</el-button>
+                    </div>
+                    <div>
+                        <el-input v-model="password" type="password" placeholder="密码" class="input" />
+                    </div>
+                    <div>
+                        <el-input v-model="repeatPassword" type="password" placeholder="重复密码" class="input" />
+                    </div>
+                    <div>
+                        <el-button type="primary" class="input" @click="register">找回密码</el-button>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
         </div>
     </div>
 </template>
@@ -30,6 +49,7 @@ import { ref } from 'vue'
     margin: 0;
     padding: 0;
 }
+
 .container {
     background-color: #F0F2F5;
     height: 100vh;
@@ -39,18 +59,13 @@ import { ref } from 'vue'
     justify-content: center;
     align-items: center;
 }
+
 .login {
     width: 400px;
     height: 400px;
     background-color: #FFFFFF;
 }
-.login .loginTitle {
-    margin: 10%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    font-size: large;
-}
+
 .login .input {
     width: 80%;
     margin: 4%;
