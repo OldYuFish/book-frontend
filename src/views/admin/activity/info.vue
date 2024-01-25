@@ -8,7 +8,7 @@
       <ElCol v-for="activityList of activityCardInfo" :span="12">
         <Card
           :title="activityList.title"
-          :image="activityList.image"
+          :image="'/img/4.png'"
           :info="activityList.info"
         />
       </ElCol>
