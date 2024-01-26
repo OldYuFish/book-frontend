@@ -168,9 +168,21 @@ watch(
     emits('getResponseData', responseData.value)
   },
 );
+const pageCfg = ref({
+  pageIndex: 1,
+  pageSize: 10
+});
 watch(
   () => props.pageConfig,
   () => {
+    pageCfg.value.pageIndex = props.pageConfig.pageIdex;
+    pageCfg.value.pageSize = props.pageConfig.pageSize;
+  }
+);
+watch(
+  () => pageCfg.value,
+  () => {
+    console.log(1)
     queryAPI[pageRoute]();
   },
 );
