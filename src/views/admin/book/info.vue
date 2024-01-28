@@ -10,7 +10,7 @@
           <ElIcon><Menu /></ElIcon>
         </template>
         <CardList
-          :book-lists="bookLists.value"
+          :book-lists="bookLists"
           :page-config="pageConfig.value"
           @pageChange="pageChange"
         />
@@ -20,7 +20,7 @@
           <ElIcon><Fold /></ElIcon>
         </template>
         <TableList
-          :book-lists="bookLists.value"
+          :book-lists="bookLists"
           @tablePageChange="tablePageChange"
         />
       </ElTabPane>

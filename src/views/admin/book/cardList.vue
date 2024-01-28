@@ -10,7 +10,7 @@
       </ElCol>
     </template>
   </ElRow>
-  <ElEmpty v-show="!bookCardInfo.value" :image-size="160" description="暂无数据" />
+  <!-- <ElEmpty v-show="!bookCardInfo.value" :image-size="160" description="暂无数据" /> -->
   <ElPagination
     v-model:currentPage="props.pageConfig.pageIndex"
     v-model:pageSize="props.pageConfig.pageSize"
@@ -48,12 +48,11 @@ const props = defineProps({
 const emits = defineEmits({
   pageChange: (_pageIndex: number, _pageSize: number) => true,
 });
-const bookLists = ref<any[]>([]);
 const bookCardInfo = ref<Object[]>([]);
 watch(
-  () => bookLists.value,
+  () => props.bookLists,
   () => {
-    bookLists.value.forEach((val: any) => {
+    props.bookLists.forEach((val: any) => {
       bookCardInfo.value.push({
         title: val.title,
         image: val.image,
@@ -66,7 +65,11 @@ watch(
         }
       });
     });
-  }
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
 );
 const currentChange = (pageIndex: number) => {
   emits('pageChange', pageIndex, props.pageConfig.pageSize!)

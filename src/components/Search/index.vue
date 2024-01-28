@@ -177,13 +177,20 @@ watch(
   () => {
     pageCfg.value.pageIndex = props.pageConfig.pageIdex;
     pageCfg.value.pageSize = props.pageConfig.pageSize;
-  }
+  },
+  {
+    // deep: true,
+    immediate: true,
+  },
 );
 watch(
   () => pageCfg.value,
   () => {
-    console.log(1)
     queryAPI[pageRoute]();
+  },
+  {
+    // deep: true,
+    immediate: true,
   },
 );
 queryAPI[pageRoute]();
