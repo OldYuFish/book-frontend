@@ -59,7 +59,11 @@ watch(
         }
       });
     });
-  }
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
 );
 const currentChange = (pageIndex: number) => {
   pageConfig.value.pageIndex = pageIndex;
