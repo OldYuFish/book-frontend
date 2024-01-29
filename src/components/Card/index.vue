@@ -1,7 +1,7 @@
 <template>
   <ElCard :body-style="{ padding: '0px' }">
     <template v-if="pageRoute === 'book'">
-      <img :src="props.image" class="image" />
+      <img :src="imagePath" class="image" />
       <CardText
         :title="props.title"
         :info="props.info"
@@ -10,7 +10,7 @@
     </template>
     <template v-else-if="pageRoute === 'payment'">
       <ElRow justify="center">
-        <ElAvatar style="margin-top: 12px" shape="circle" size="large" :src="props.image" />
+        <ElAvatar style="margin-top: 12px" shape="circle" size="large" :src="imagePath" />
       </ElRow>
       <CardText
         :title="props.title"
@@ -21,7 +21,7 @@
     <template v-else-if="pageRoute === 'activity'">
       <ElRow>
         <ElCol :span="8">
-          <img style="margin: 6px" :src="props.image" class="image" />
+          <img style="margin: 6px" :src="imagePath" class="image" />
         </ElCol>
         <ElCol :span="16">
           <CardText
@@ -65,4 +65,5 @@ const getPath = (path: string) => {
   return path.slice(0, index);
 }
 const pageRoute = getPath(route.name as string);
+const imagePath = '/img/4.png';
 </script>
